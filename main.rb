@@ -7,13 +7,13 @@ require 'figlet'
 require 'cowsay'
 require 'fortune_gem'
 
+$config = YAML.load_file('config.yaml')
+$pasta = YAML.load_file('pasta.yaml')
+
 require_relative 'lib/patches'
 require_relative 'lib/utilities'
 require_relative 'lib/fun'
 require_relative 'lib/admin'
-
-$config = YAML.load_file('config.yaml')
-$pasta = YAML.load_file('pasta.yaml')
 
 # Figlet initialization
 $figlet = Figlet::Typesetter.new(Figlet::Font.new("fonts/#{$config['figletFont']}.flf"))
@@ -46,25 +46,28 @@ $bot.command :sudo do |event, *args|
   end
 end
 
-$pasta.keys.each do |pasta| # Slightly improved
-  $bot.command pasta.to_sym do |event, *args|
-    catch :RegexError do
-      sed = []
-      args.each { |string| string.split('/').each { |subs| sed.push(subs) } }
-      $pasta = YAML.load_file('pasta.yaml') # Required to reload the pastas
-      message = $pasta[pasta]
-      unless sed.empty?
-        sed.each_slice(2) do |match, replace|
-          begin
-            message.gsub!(/#{match}/i, replace || '')
-          rescue RegexpError
-            event.channel.send_message('Error: Invalid Regex')
-            throw :RegexError
-          end
+$bot.command :c do |event, *args|
+  if args.size == 0
+    return "Available pastas: #{$pasta.keys.map{|k|"`#{k.to_s}`"}.join(' ')}"
+  end
+  begin
+    sed = []
+    pasta = args.shift
+    args.each { |string| string.split('/').each { |subs| sed.push(subs) } }
+    message = $pasta[pasta]
+    unless sed.empty?
+      sed.each_slice(2) do |match, replace|
+        begin
+          message.gsub!(/#{match}/i, replace || '')
+        rescue RegexpError
+          event.channel.send_message('Error: Invalid Regex')
+          throw :RegexError
         end
       end
-      message
     end
+    return message
+  rescue KeyError
+    event.channel.send_message('Error: Invalid Pasta')
   end
 end
 
