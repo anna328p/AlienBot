@@ -54,7 +54,7 @@ $bot.command :c do |event, *args|
     sed = []
     pasta = args.shift
     args.each { |string| string.split('/').each { |subs| sed.push(subs) } }
-    message = $pasta[pasta]
+    message = $pasta[pasta].dup
     unless sed.empty?
       sed.each_slice(2) do |match, replace|
         begin

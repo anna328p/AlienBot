@@ -20,6 +20,9 @@ module Fun
   command(:slap,
           description: 'Hit someone or something',
           usage: '[text]') do |event, *args|
+    if  args.map{|s| s.include?('@everyone') || s.include?('@here') }.include?(true)
+      return 'nuh uh'
+    end
     "<@#{event.author.id}> slaps #{args.join(' ')} around a bit with a large trout"
   end
 
