@@ -5,6 +5,9 @@ info.yaml
 
 # Vim files
 *~
+tags
 
 # Ruby files
 Gemfile.lock
+vendor
+vendor/**

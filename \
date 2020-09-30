@@ -67,14 +67,10 @@ module Utilities
     end
   end
 
-  command(:eval,
-          chain_usable: false
-         ) do |event, *args|
+  command(:eval) do |event, *args|
     if event.message.author.id == 165998239273844736
-      e, m, a = event, event.message, event.author
       reply = event.message.reply("```=> #{(eval args.join(' ')).inspect}```")
       Thread.new { sleep 5; reply.delete }
-      return nil
     else
       'nuh uh'
     end

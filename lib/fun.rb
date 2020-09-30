@@ -30,14 +30,21 @@ module Fun
           description: 'Turns a message into big ASCII art letters',
           usage: '[text]',
           min_args: 1) do |_event, *args|
-    '```' + $figlet[args.join('')] + '```'
+
+    input = args.join(' ')
+
+    array = WordWrap.ww(input, 25).split(?\n)
+
+    output = array.map { |l| $figlet[l] }.join(?\n).gsub(?`, ?')
+
+    "```#{output}```"
   end
 
   command(:cowsay,
           description: 'Wraps a message with an ASCII art cow',
           usage: '[text]',
           min_args: 1) do |_event, *args|
-    input_text = args.join(' ').gsub('```', '')
+    input_text = WordWrap.ww(args.join(' ').gsub('```', ''), 40)
     rendered_text = Cowsay.say(input_text, 'cow')
     chunked_text = ''
     until rendered_text.empty?

@@ -35,16 +35,4 @@ module Admin
       'Permission denied.'
     end
   end
-  command(:eval,
-         description: "Evaluates a string as ruby code",
-         min_args: 1,
-         usage: '[code]',
-         help_available: false) do |event, *args|
-    if event.author.id == 165998239273844736
-      puts args
-      eval(args.join(' ')).to_s
-    else
-      "Error: permission denied"
-    end
-  end
 end

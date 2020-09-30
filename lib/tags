@@ -1,0 +1,9 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+Admin	/home/dmitry/work/archbot/lib/admin.rb	/^module Admin$/;"	m	language:Ruby
+CommandBot	/home/dmitry/work/archbot/lib/patches.rb	/^  class CommandBot$/;"	c	language:Ruby	class:Discordrb
+Discordrb	/home/dmitry/work/archbot/lib/patches.rb	/^module Discordrb::Commands$/;"	m	language:Ruby
+execute_chain	/home/dmitry/work/archbot/lib/patches.rb	/^    def execute_chain(chain, event)$/;"	f	language:Ruby	class:Discordrb.CommandBot
+Fun	/home/dmitry/work/archbot/lib/fun.rb	/^module Fun$/;"	m	language:Ruby
+Pasta	/home/dmitry/work/archbot/lib/pasta.rb	/^module Pasta$/;"	m	language:Ruby
+split_message_n	/home/dmitry/work/archbot/lib/patches.rb	/^def split_message_n(msg, n)$/;"	f	language:Ruby
+Utilities	/home/dmitry/work/archbot/lib/utilities.rb	/^module Utilities$/;"	m	language:Ruby
